@@ -1,23 +1,87 @@
-{% block content %}
-{% load static %}
-<div class="login-box">
-    <h2>Login</h2>
-    <form>
+{% block content %} {% load static %}
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>First authentication | Login</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta content="Themesbrand" name="author" />
+    <!-- App favicon -->
+    <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
+    <link
+      href="{% static 'css/style.css' %}"
+      id="bootstrap-style"
+      rel="stylesheet"
+      type="text/css"
+    />
+    <script type="text/javascript">
+      var user = "{{request.user}}";
+      console.log(user);
+      function getToken(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie != "") {
+          var cookies = document.cookie.split(";");
+          for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == name + "=") {
+              cookieValue = decodeURIComponent(
+                cookie.substring(name.length + 1)
+              );
+              break;
+            }
+          }
+        }
+        return cookieValue;
+      }
+      var csrftoken = getToken("csrftoken");
+
+      function getCookie(name) {
+        var cookieArr = document.cookie.split(";");
+
+        for (var i = 0; i < cookieArr.length; i++) {
+          var cookiePair = cookieArr[i].split("=");
+
+          if (name == cookiePair[0].trim()) {
+            return decodeURIComponent(cookiePair[1]);
+          }
+        }
+        return null;
+      }
+    </script>
+  </head>
+  <body>
+    <div class="login-box">
+      <h2>Login</h2>
+      <form method="POST">{% csrf_token %}
         <div class="user-box">
-        <input type="text" name="" required="">
-        <label>Username</label>
+          <input type="text" name="usernamelogin" id="inputUsername" required/>
+          <label>Username</label>
         </div>
         <div class="user-box">
-        <input type="password" name="" required="">
-        <label>Password</label>
+          <input type="password" name="passwordlogin" id="inputPassword" required/>
+          <label>Password</label>
         </div>
+        {% for field in login_form %}
+        <p>
+        {% for error in field.errors %}
+          <p style="color: red">{{ error }}</p>
+        {% endfor %}
+        </p>
+        {% endfor %}
+        {% if login_form.non_field_errors %}
+          <div style="color: red">
+          <p>{{login_form.non_field_errors}}</p>
+          </div>
+        {% endif %}  
         <a href="#">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        Submit
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+          <button style="background-color: transparent; border: none; color: white; font-size: 16px; padding: 0; margin: 0;" type="submit">Submit</button>
         </a>
-    </form>
-</div>
+      </form>
+    </div>
+  </body>
+</html>
 {% endblock content %}
