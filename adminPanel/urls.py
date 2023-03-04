@@ -10,4 +10,5 @@ urlpatterns = [
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     path('', views.index, name='home'),
     path('login', views.login_view, name='login'),
+    path('second_auth', views.secondAuth, name='auth')
 ]

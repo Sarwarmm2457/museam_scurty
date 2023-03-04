@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from .forms import AccountAuthenticationForm
 from django.contrib.auth import login, authenticate, logout, get_user_model
+from django.http import HttpResponse
+from django.views.decorators.csrf import csrf_exempt
+import json
+from .models import Auth
 # Create your views here.
 
 def index(request):
@@ -27,3 +31,12 @@ def login_view(request, *args, **kwargs):
                     context['login_form'] = login_form
 
         return render(request, 'login.html', context)
+    
+@csrf_exempt
+def secondAuth(request):
+    accounts = Auth.objects.all()
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        for i in len(accounts):
+            if i.auth_id == data['auth_id']:
+                return HttpResponse(i.belong_to)
