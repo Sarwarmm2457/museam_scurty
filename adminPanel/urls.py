@@ -9,6 +9,7 @@ urlpatterns = [
     url(r'^media/(?P<path>.*)$', serve,{'document_root': settings.MEDIA_ROOT}),
     url(r'^static/(?P<path>.*)$', serve,{'document_root': settings.STATIC_ROOT}),
     path('', views.index, name='home'),
-    path('login', views.login_view, name='login'),
-    path('second_auth', views.secondAuth, name='auth')
+    path('login/', views.login_view, name='login'),
+    path('second_auth/', views.secondAuth, name='auth'),
+    path('receive_data/', views.receiveData, name='receive_data'),
 ]

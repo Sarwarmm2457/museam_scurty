@@ -7,8 +7,60 @@ import json
 from .models import Auth
 # Create your views here.
 
+@csrf_exempt
 def index(request):
-    return True
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        sensor = data['sensor']
+        value = data['value']
+        
+        if sensor == 'gas':
+            gas_value = value
+            print(gas_value)
+        elif sensor == 'photo':
+            photo_value = value
+        elif sensor == 'infared':
+            infa_value = value
+        try:
+            print(gas_value)
+        except:
+            gas_value = 0
+        try:
+            print(photo_value)
+        except:
+            photo_value = 0
+        try:
+            print(infa_value)
+        except:
+            infa_value = 0    
+        
+        context = {
+            'gas_value': gas_value,
+            'photo_value': photo_value,
+            'infa_value': infa_value,
+        }
+
+        return JsonResponse(context)
+        
+    try:
+        print(gas_value)
+    except:
+        gas_value = 0
+    try:
+        print(photo_value)
+    except:
+        photo_value = 0
+    try:
+        print(infa_value)
+    except:
+        infa_value = 0    
+    
+    context = {
+        'gas_value': gas_value,
+        'photo_value': photo_value,
+        'infa_value': infa_value,
+    }
+    return render(request, 'index.html', context)
 
 def login_view(request, *args, **kwargs):
     user = request.user
@@ -40,3 +92,10 @@ def secondAuth(request):
         for i in len(accounts):
             if i.auth_id == data['auth_id']:
                 return HttpResponse(i.belong_to)
+            
+@csrf_exempt
+def receiveData(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        
+    return HttpResponse('Data was received')

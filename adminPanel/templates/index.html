@@ -1,0 +1,66 @@
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Status Page</title>
+  <link rel="stylesheet" href="{% static 'css/index.css' %}">
+<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="device">
+          <div class="circle on">
+            <div class="status">Gas</div>
+          </div>
+          <div id="value"></div>
+
+          <div id="value"></div>
+
+          <script>
+          setInterval(function() {
+              // Send a POST request to the server to get the value
+              fetch("{% url 'home' %}", {
+                  method: 'POST',
+              })
+                  .then(response => response.json())
+                  .then(data => {
+                      // Update the value on the page
+                      document.getElementById("value").innerHTML = data.value;
+                  })
+          }, 2000); // Fetch the value every 2 seconds
+          </script>
+          
+
+          <div class="text" id='value'>{{gas_value}}</div>
+          <label class="switch">
+            <input type="checkbox" checked>
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="device">
+          <div class="circle on">
+            <div class="status">Photosensitive</div>
+          </div>
+          <div class="text">{{photo_value}}</div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+        </div>
+        <div class="device">
+          <div class="circle on">
+            <div class="status">Infrared</div>
+          </div>
+          <div class="text">{{infa_value}}</div>
+          <label class="switch">
+            <input type="checkbox">
+            <span class="slider round"></span>
+          </label>
+        </div>
+      </div>
+  <script src="{% static 'js/index.js' %}"></script>
+</body>
+</html>
+{% endblock content %}
