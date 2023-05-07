@@ -13,9 +13,7 @@ circles.forEach((circle, index) => {
     circle.classList.toggle('on', checkbox.checked);
     circle.classList.toggle('off', !checkbox.checked);
     if (checkbox.checked) {
-      texts[index].classList.add('show');
     } else {
-      texts[index].classList.remove('show');
     }
   }
 
@@ -25,9 +23,9 @@ circles.forEach((circle, index) => {
     circle.classList.toggle('on', isOn);
     circle.classList.toggle('off', !isOn);
     if (isOn) {
-      texts[index].classList.add('show');
+      document.getElementById('photo_value').innerText = photo_value
     } else {
-      texts[index].classList.remove('show');
+      document.getElementById('photo_value').innerText = 'oweinfeiwun'
     }
 
     // Store device state in local storage

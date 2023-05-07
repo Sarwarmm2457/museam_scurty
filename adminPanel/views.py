@@ -1,11 +1,28 @@
 from django.shortcuts import render, redirect
 from .forms import AccountAuthenticationForm
 from django.contrib.auth import login, authenticate, logout, get_user_model
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 import json
 from .models import Auth
 # Create your views here.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 @csrf_exempt
 def index(request):
@@ -55,6 +72,7 @@ def index(request):
     except:
         infa_value = 0    
     
+        
     context = {
         'gas_value': gas_value,
         'photo_value': photo_value,
@@ -78,7 +96,7 @@ def login_view(request, *args, **kwargs):
                         username=usernamelogin, password=passwordlogin) 
                     if user: 
                         login(request, user)
-                        return redirect("home")
+                        return redirect("auth")
                 else:
                     context['login_form'] = login_form
 
@@ -92,10 +110,17 @@ def secondAuth(request):
         for i in len(accounts):
             if i.auth_id == data['auth_id']:
                 return HttpResponse(i.belong_to)
-            
+    return render(request, 'fingerprint.html')
+ 
+def logout_view(request):
+    # logging user out and redirecting them to home page after.
+    # by using the logout function in Django.
+    logout(request)
+    return redirect("login")           
 @csrf_exempt
 def receiveData(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         
     return HttpResponse('Data was received')
+

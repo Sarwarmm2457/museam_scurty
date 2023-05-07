@@ -1,0 +1,179 @@
+{% block content %}
+{% load static%}
+
+
+
+
+
+<script>
+    const fingerprintInput = document.querySelector('#{{ finger_id }}');
+    fingerprintInput.addEventListener('click', function() {
+        {{ fingerprint_sensor_pressed }}
+    });
+</script>
+
+
+
+
+
+<form>
+    <div style="position: absolute; top: 1; left: 0;">
+        <head>
+            <meta charset="UTF-8">
+            <title>fingerprint</title>
+            <link rel="stylesheet" href="{% static 'css/index.css' %}">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+            <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+        </head>
+        <body>
+            <nav>
+                <ul>
+                    <li class="right"><a href="{% url 'logout' %}">Home</a></li>
+                    <li class="right"><a href="{% url 'home' %}">.</a></li>
+                </ul>
+            </nav>
+        </body> 
+    </div>
+    
+    <!-- Rest of your form code here -->
+    
+</form>
+<div id="container">
+	<svg width="51px" height="57px" viewBox="0 0 51 57" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+			<g id="Artboard" transform="translate(-438.000000, -102.000000)" stroke="#979797" stroke-width="3">
+				<path d="M480.643284,151.284579 C475.23108,151.626868 470.974076,150.608589 467.872272,148.229744 C464.770468,145.850898 463.292395,142.254438 463.438051,137.440365" class="pathType1" id="Path-1"></path>
+				<path d="M446.36112,108.380701 C450.726056,105.742327 456.418366,104.42314 463.438051,104.42314 C470.457736,104.42314 475.514887,105.742327 478.609504,108.380701" class="pathType2" id="Path-2"></path>
+				<path d="M439.918388,123.071927 C445.448433,115.050039 453.279464,111.039094 463.41148,111.039094 C473.543496,111.039094 481.374527,115.050039 486.904572,123.071927" class="pathType2" id="Path-3"></path>
+				<path d="M456.64383,156.632203 C452.694302,151.774532 450.31629,147.294823 449.509794,143.193076 C448.300049,137.040455 449.8911,132.386793 452.721689,129.347965 C455.019807,126.88078 459.765192,124.745728 462.6918,124.745728 C468.117645,124.745728 472.283129,126.419684 474.617171,129.690941 C476.173198,131.87178 477.04408,134.564603 477.229816,137.76941" class="pathType1" id="Path-4"></path>
+				<path d="M443.604581,149.533875 C441.980135,143.519811 441.59018,134.404517 443.910397,129.625646 C446.230614,124.846775 449.433636,121.343822 455.131736,119.64833 C459.380393,118.384126 461.442452,118.528162 463.428252,118.454479 C465.414052,118.380797 473.463617,118.874095 478.61653,123.786554 C484.741431,129.625646 485.442423,135.555996 483.909701,140.688966 C482.632142,144.967416 478.598003,145.311836 477.229816,145.151449 C474.182446,144.794219 471.632577,143.103526 470.812048,141.539137 C468.868368,137.833394 469.950986,132.31092 464.322938,131.429809 C460.171841,130.779926 458.842293,132.502596 457.563554,134.015188 C456.284816,135.52778 455.373073,138.594315 456.548699,143.040265 C457.724326,147.486214 461.1968,151.001714 464.322938,153.502325 C466.407029,155.1694 468.570066,156.212693 470.812048,156.632203" class="pathType1" id="Path-5"></path>
+			</g>
+		</g>
+	</svg>
+<svg width="60px" height="60px" viewBox="0 0 60 60" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Artboard" stroke="#128C7E" stroke-width="3">
+            <circle id="Oval" cx="30" cy="30" r="28"></circle>
+            <path d="M44.5038705,21.7819773 L23.5895375,41.995235 L13.5270395,31.313432 C11.6014933,28.2666192 9.4997705,26.7432128 7.22187102,26.7432128 C3.19361944,26.7432128 2.00387054,30 2.00387054,30 C1.74465551,44.5862972 14.5398975,58 30.0038705,58 C45.4678435,58 58.0038705,45.463973 58.0038705,30 C58.0038705,22.2901599 54.8877913,15.3081191 49.8463524,10.2445972" id="check" stroke-linecap="round" stroke-linejoin="round" stroke-dasharray="168" stroke-dashoffset="-168"></path>
+        </g>
+    </g>
+</svg>
+</div>
+<div id="text">Touch the fingerprint sensor</div>
+<style>
+    body {
+        margin: 0;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Roboto', sans-serif;
+        flex-direction: column;
+        background: color #25a2a4;;
+    }
+    #container {
+        position: relative;
+        transform: scale(1.25)
+    }
+    #container:hover {
+        cursor: pointer;
+    }
+    #container * {
+        position: absolute;
+        top: 0;
+        left: -25px
+    }
+    
+    #Path-1,
+    #Path-2,
+    #Path-3,
+    #Path-4,
+    #Path-5 {
+        stroke-dasharray: 200;
+      stroke-dashoffset: 0;
+    /* 	animation-play-state: paused; */
+    }
+    .animate-path {
+        animation: 0.8s fingerprint_animation ease-in forwards;
+    }
+    .animate-path-delay {
+        animation: 0.8s fingerprint_animation ease-in forwards;
+        animation-delay: 0.1s
+        
+    }
+    #text {
+        margin-top: 100px;
+        transform: scale(1.23);
+    /* 	animation-play-state: paused; */
+    }
+    .animate-text {
+        animation: 0.5s fadeout linear forwards;
+    }
+    #check {
+        animation-delay: 0.3s;
+    }
+    .animate-check {
+        animation: 0.5s check_animation linear forwards;
+    }
+    #checkmark {
+        position: absolute;
+        left: -5px;
+        top: 0px;
+    }
+    #Oval {
+        stroke-dasharray: 200px;
+        stroke-dashoffset: 200;
+        opacity: 0;
+        transform: rotate(-75deg);
+        transform-origin: 30px 30px;
+    /* 	animation-play-state: paused; */
+    }
+    .animate-oval {
+        animation: 0.5s circle_animation 0.2s ease-in forwards;
+    }
+    @keyframes fingerprint_animation {
+        50% {
+            stroke-dashoffset: -100;
+        }
+        60% {
+            stroke-opacity: 0;
+        }
+        100% {
+            stroke-dashoffset: -200;
+            stroke-opacity: 0;
+        }
+    }
+    
+    @keyframes fadeout {
+        60% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 0;
+        }
+    }
+    
+    @keyframes circle_animation {
+        60% {
+            opacity: 1;
+        }
+        100% {
+            opacity: 1;
+            stroke-dasharray: 400px;
+            transform: rotate(40deg);
+        }
+    }
+    
+    @keyframes check_animation {
+        0% {
+            stroke-dasharray: 126;
+            stroke-dashoffset: 126;
+            
+        }
+        100% {
+            stroke-dasharray: 45;
+            stroke-dashoffset: 94
+        }
+    }
+</style>
+{% endblock content %}

@@ -1,5 +1,36 @@
 {% block content %} {% load static %}
+<!DOCTYPE html>
 <html lang="en">
+
+
+<form>
+  <div style="position: absolute; top: 0; left: 0;">
+      <head>
+          <meta charset="UTF-8">
+          <title>login</title>
+          <link rel="stylesheet" href="{% static 'css/index.css' %}">
+          <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+          <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+      </head>
+      <body>
+          <nav>
+              <ul>
+                  <li class="left"><a href="#">About</a></li>
+                  
+                  <li class="left"><a href="#">Contact</a></li>
+              </ul>
+          </nav>
+      </body> 
+  </div>
+  
+  <!-- Rest of your form code here -->
+  
+</form>
+
+
+
+
+
   <head>
     <meta charset="utf-8" />
     <title>First authentication | Login</title>
@@ -7,46 +38,49 @@
     <meta content="Themesbrand" name="author" />
     <!-- App favicon -->
     <link rel="shortcut icon" href="{% static 'images/favicon.ico' %}" />
-    <link
-      href="{% static 'css/style.css' %}"
-      id="bootstrap-style"
-      rel="stylesheet"
-      type="text/css"
-    />
+    <link href="{% static 'css/style.css' %}" id="bootstrap-style" rel="stylesheet" type="text/css" />
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+      }
+
+      button[type="submit"] {
+        background-color: #03e9f4;
+        box-shadow: 0px 0px 15px 0px #3289a3;
+        color: #fff;
+        font-size: 16px;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: all 0.3s ease-in-out;
+        text-shadow: 0px 0px 5px #fff;
+        font-family: Arial, sans-serif;
+      }
+
+      button[type="submit"]:hover {
+        background-color: #fff;
+        color: #007bff;
+        text-shadow: none;
+      }
+
+      button[type="submit"]:focus {
+        outline: none;
+        box-shadow: 0px 0px 15px 0px #3c8be0;
+      }
+
+      .admin-panel-link {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      .admin-panel-link:hover {
+        text-decoration: none;
+        border-bottom: none;
+      }
+    </style>
     <script type="text/javascript">
-      var user = "{{request.user}}";
-      console.log(user);
-      function getToken(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != "") {
-          var cookies = document.cookie.split(";");
-          for (var i = 0; i < cookies.length; i++) {
-            var cookie = jQuery.trim(cookies[i]);
-            // Does this cookie string begin with the name we want?
-            if (cookie.substring(0, name.length + 1) == name + "=") {
-              cookieValue = decodeURIComponent(
-                cookie.substring(name.length + 1)
-              );
-              break;
-            }
-          }
-        }
-        return cookieValue;
-      }
-      var csrftoken = getToken("csrftoken");
-
-      function getCookie(name) {
-        var cookieArr = document.cookie.split(";");
-
-        for (var i = 0; i < cookieArr.length; i++) {
-          var cookiePair = cookieArr[i].split("=");
-
-          if (name == cookiePair[0].trim()) {
-            return decodeURIComponent(cookiePair[1]);
-          }
-        }
-        return null;
-      }
+      // your existing script goes here
     </script>
   </head>
   <body>
@@ -54,8 +88,8 @@
       <h2>Login</h2>
       <form method="POST">{% csrf_token %}
         <div class="user-box">
-          <input type="text" name="usernamelogin" id="inputUsername" required/>
-          <label>Username</label>
+          <input type="text" name="usernamelogin" id="inputUsername" required autocomplete="off"/>
+          <label>username</label>
         </div>
         <div class="user-box">
           <input type="password" name="passwordlogin" id="inputPassword" required/>
@@ -73,15 +107,23 @@
           <p>{{login_form.non_field_errors}}</p>
           </div>
         {% endif %}  
-        <a href="#">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
-          <button style="background-color: transparent; border: none; color: white; font-size: 16px; padding: 0; margin: 0;" type="submit">Submit</button>
-        </a>
+        <a href="{% url 'admin:index' %}" class="admin-panel-link">Admin Panel</a>
+        <button type="submit">Submit</button>
       </form>
     </div>
+    <style>
+      
+      .admin-panel-link {
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        color: #fff;
+        text-decoration: none;
+      }
+      
+    </style>
   </body>
 </html>
+
+
 {% endblock content %}

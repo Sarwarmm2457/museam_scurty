@@ -6,61 +6,174 @@
   <meta charset="UTF-8">
   <title>Status Page</title>
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
-<script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
 </head>
+
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 88vh;
+  }
+</style>
+
 <body>
-    <div class="container">
-        <div class="device">
-          <div class="circle on">
-            <div class="status">Gas</div>
-          </div>
-          <div id="value"></div>
+  <nav>
+    <ul>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+      <form id="program-form" method="post">
+        {% csrf_token %}
+        <input type="hidden" name="open_program" value="true">
+      </form>
+      <a href="#" onclick="openJar()">ArduImage</a>
+      <script>
+        function openJar() {
+          window.open("C:/Users/smm16/OneDrive/Documents/Arduino/tools/ArduImageCapture/tool/ArduImageCapture.jar");
+        }
+      </script>
+    </ul>
+    
+  </nav>
 
-          <div id="value"></div>
+  <div style="position: absolute; bottom: 0; right: 0; color: white;">
+    <label id="arduino-status">Arduino disconnected</label>
+    <br>
+    <label id="com-label">COM:</label>
+    <label id="com-value">N/A</label>
+  </div>
+  
+  <div style="position: absolute; top: 0; right: 0; color: white;">
+    <label for="com-port">Connect to Port:</label>
+    <select id="com-port" name="com-port">
+      <option value="COM1">COM1</option>
+      <option value="COM2">COM2</option>
+      <option value="COM3">COM3</option>
+      <option value="COM4">COM4</option> 
+      <option value="COM4">COM5</option> 
+      <option value="COM4">COM6</option> 
+    </select>
 
-          <script>
-          setInterval(function() {
-              // Send a POST request to the server to get the value
-              fetch("{% url 'home' %}", {
-                  method: 'POST',
-              })
-                  .then(response => response.json())
-                  .then(data => {
-                      // Update the value on the page
-                      document.getElementById("value").innerHTML = data.value;
-                  })
-          }, 2000); // Fetch the value every 2 seconds
-          </script>
-          
+    <label for="baud-rate">Baud Rate:</label>
+    <select id="baud-rate" name="baud-rate">
+      <option value="9600">9600</option>
+      <option value="115200">115200</option>
+      <option value="57600">57600</option>
+      <option value="38400">38400</option>
+    </select>
+  </div>
+  
 
-          <div class="text" id='value'>{{gas_value}}</div>
-          <label class="switch">
-            <input type="checkbox" checked>
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div class="device">
-          <div class="circle on">
-            <div class="status">Photosensitive</div>
-          </div>
-          <div class="text">{{photo_value}}</div>
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-          </label>
-        </div>
-        <div class="device">
-          <div class="circle on">
-            <div class="status">Infrared</div>
-          </div>
-          <div class="text">{{infa_value}}</div>
-          <label class="switch">
-            <input type="checkbox">
-            <span class="slider round"></span>
-          </label>
-        </div>
+
+
+
+
+  
+
+  <div class="container">
+    <div class="device">
+      <div class="circle on">
+        <div class="status">{{gas_value}}</div>
       </div>
+      <label class="switch">
+        <input type="checkbox" checked>
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="device">
+      <div class="circle on">
+        <div class="status" id="photo_value">{{photo_value}}</div>
+        <script>
+          var photo_value = '{{photo_value}}'
+        </script>
+      </div>
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </div>
+    <div class="device">
+      <div class="circle on">
+        <div class="status">{{infa_value}}</div>
+      </div>
+      <label class="switch">
+        <input type="checkbox">
+        <span class="slider round"></span>
+      </label>
+    </div>
+  </div>
+
   <script src="{% static 'js/index.js' %}"></script>
 </body>
+
+<head>
+  <meta charset="UTF-8">
+  <title>open and close the door</title>
+  <style>
+    /* Center the button */
+    .button-wrapper {
+      display: flex;
+      justify-content: center;
+      align-items: top;
+      height: -90vh;
+    }
+
+    /* Style the button */
+    .button {
+      display: inline-block;
+      padding: 10px 20px;
+      background-color: #25babc;
+      color: #000000;
+      font-size: 20px;
+      border-radius: 5px;
+      text-align: center;
+      text-decoration: none;
+      transition: background-color 0.3s ease;
+    }
+
+
+
+
+    
+    .button:hover {
+      background-color: #007B9F;
+    }
+  </style>
+  <script src="{% static 'js/jquery-3.6.0.min.js' %}"></script>
+  <script>
+    
+    $(document).ready(function() {
+      $(".button").click(function() {
+        $.ajax({
+          url: "/servo-control/",
+          type: "POST",
+          data: {"action": "both"},
+          success: function() {
+            console.log("Servos moved");
+          },
+          error: function() {
+            console.log("Error moving servos");
+          }
+        });
+      });
+    });
+  </script>
+</head>
+
+<body>
+  <div class="button-wrapper">
+    <a href="#" class="button">open and close the door</a>
+
+  </div>
+</body>
+
+
+
+
+
+
+
 </html>
+
 {% endblock content %}
